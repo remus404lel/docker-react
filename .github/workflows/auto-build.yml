@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - name: Build the Docker image
-      working-directory: ./docker-react
+      working-directory: ./
       run: ls
     - name: Build the Docker image
-      working-directory: ./docker-react
+      working-directory: ./
       run: docker build -t remus95/docker-react -f Dockerfile.dev .
     - name: Run the Docker image
       run: docker run remus95/docker-react npm run test -- --coverage
