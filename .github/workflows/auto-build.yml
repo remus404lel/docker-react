@@ -15,8 +15,24 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
+    
     - name: Build the Docker image
       working-directory: ./
       run: docker build -t remus95/docker-react -f Dockerfile.dev .
+    
     - name: Run the Docker image
       run: docker run remus95/docker-react npm run test -- --coverage
+
+    - name: Generate deployment package
+      run: zip -r docker-react.zip . -x '*.git*'
+    
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v18
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+        application_name: remus-docker-react
+        environment_name: Remusdockerreact-env
+        version_label: 1
+        region: us-east-2
+        deployment_package: docker-react.zip
