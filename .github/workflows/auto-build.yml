@@ -33,4 +33,4 @@ jobs:
         environment_name: Remusdockerreact-env
         version_label: "v1.0.1"
         region: us-east-2
-        deployment_package: v.1.0.1.zip
+        deployment_package: docker-react.zip
